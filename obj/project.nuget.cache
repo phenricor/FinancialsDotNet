@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "mKomVgEPzGw=",
+  "success": true,
+  "projectFilePath": "/home/paullo/development/ASP.NET Learning/Financials/Financials.csproj",
+  "expectedPackageFiles": [
+    "/home/paullo/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.1/microsoft.aspnetcore.app.ref.9.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
