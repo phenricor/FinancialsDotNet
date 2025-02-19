@@ -1,0 +1,46 @@
+@model Transaction
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2>Edit Transaction</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="form-label">Description</label>
+                            <input asp-for="Description" class="form-control" placeholder="Enter a description"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Value" class="form-label">Value</label>
+                            <input asp-for="Value" type="number" class="form-control" placeholder="Enter the value"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Date" class="form-label">Date</label>
+                            <input asp-for="Date" type="date" class="form-control" value=@(DateTime.Today.ToString("yyyy-MM-dd"))/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="TagId" class="form-label">Tag</label>
+                            <input asp-for="TagId" type="text" class="form-control" placeholder="Enter a description"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="BucketId" class="form-label">Bucket</label>
+                            <input asp-for="BucketId" type="text" class="form-control" placeholder="Enter the bucket"/>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary" type="submit">Create</button>
+                            <a asp-controller="Transactions" asp-action="Index" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}
