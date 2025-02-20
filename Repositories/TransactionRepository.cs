@@ -14,14 +14,17 @@ public class TransactionRepository : ITransactionRepository
     }
     public IEnumerable<Transaction> GetTransactions()
     {
-        string sql = "SELECT * FROM Transactions";
+        string sql = "SELECT * FROM Transactions ORDER BY Date DESC";
         IEnumerable<Transaction> transactions = _db.LoadData<Transaction>(sql);
         return transactions;
     }
 
     public bool Add(Transaction transaction)
     {
-        string sql = "INSERT INTO Transactions VALUES (@Description, @Value, @Date, @TagId, @BucketId, @Status)";
+        string sql = @"
+            INSERT INTO Transactions 
+            VALUES (@Description, @Value, @Date, @TagId, @BucketId, @Status)
+        ";
         var param = new {
             Description = transaction.Description,
             Value = transaction.Value,

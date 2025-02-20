@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-
 namespace Financials.Models;
 
 public partial class Transaction

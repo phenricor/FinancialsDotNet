@@ -44,6 +44,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.0.1, )"
+            },
             "Microsoft.Data.Sqlclient": {
               "target": "Package",
               "version": "[6.0.1, )"

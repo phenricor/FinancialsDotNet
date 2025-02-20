@@ -44,6 +44,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhbnNhY3Rpb25zL0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/paullo/development/ASP.NET Learning/Financials/Views/Transactions/Import.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhbnNhY3Rpb25zL0ltcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/paullo/development/ASP.NET Learning/Financials/Views/Transactions/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhbnNhY3Rpb25zL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

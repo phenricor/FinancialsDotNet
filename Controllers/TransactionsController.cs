@@ -1,18 +1,33 @@
+using Financials.Dtos;
+using Financials.Services;
 using Financials.Models;
 using Microsoft.AspNetCore.Mvc;
 using Financials.Repositories;
+using Financials.ViewModels;
 
 namespace Financials.Controllers;
 
 public class TransactionsController : Controller
 {
     private readonly ITransactionRepository _repository;
-    public TransactionsController(ITransactionRepository repository) {
+    private readonly CsvImporterService _csvImport;
+    
+    public TransactionsController(ITransactionRepository repository, CsvImporterService csvImport) {
         _repository = repository;
+        _csvImport = csvImport;
     }
     public IActionResult Index()
     {
-        IEnumerable<Transaction> transactions = _repository.GetTransactions();
+        var transactions = _repository.GetTransactions()
+            .Select(t => new TransactionViewModel()
+            {
+                Date = t.Date.ToString("yyyy-MM-dd"),
+                Description = t.Description.Length > 100 ? t.Description.Substring(0, 100) : t.Description,
+                Value = t.Value.ToString("c"),
+                Id = t.Id,
+                Bucket = t.BucketId.ToString(),
+                Tag = t.TagId.ToString(),
+            }).ToList();
         return View(transactions);
     }
     public IActionResult Create()
@@ -48,5 +63,24 @@ public class TransactionsController : Controller
         if (!ModelState.IsValid) return View(obj);
         _repository.Update(obj);
         return RedirectToAction("Index");
+    }
+    public IActionResult Import()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Import(IFormFile file)
+    {
+        try
+        {
+            _csvImport.ImportTransactions(file);
+            return RedirectToAction("Index");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

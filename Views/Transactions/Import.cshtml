@@ -1,0 +1,24 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2>Import transactions</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Transactions" asp-action="Import" enctype="multipart/form-data" method="post">
+                        <dl>
+                            <dt>
+                                <label>Test</label>
+                            </dt>
+                            <dd>
+                                <input name="File" id="File" type="file" accept=".csv"/>
+                            </dd>
+                        </dl>
+                        <input asp-page-handler="Upload" class="btn" type="submit" value="Upload"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

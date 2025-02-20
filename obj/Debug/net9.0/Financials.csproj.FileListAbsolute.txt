@@ -137,3 +137,4 @@
 /home/paullo/development/ASP.NET Learning/Financials/obj/Debug/net9.0/Financials.pdb
 /home/paullo/development/ASP.NET Learning/Financials/obj/Debug/net9.0/Financials.genruntimeconfig.cache
 /home/paullo/development/ASP.NET Learning/Financials/obj/Debug/net9.0/ref/Financials.dll
+/home/paullo/development/ASP.NET Learning/Financials/bin/Debug/net9.0/CsvHelper.dll
