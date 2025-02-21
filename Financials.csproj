@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.Data.Sqlclient" Version="6.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Tag\" />
+  </ItemGroup>
+
 </Project>

@@ -66,4 +66,34 @@ public class TransactionRepository : ITransactionRepository
         };
         return _db.ExecuteSql(sql, param);
     }
+    public DateTime GetLastDate()
+    {
+        string sql = @"
+            SELECT TOP 1 * 
+            FROM Transactions 
+            WHERE Date = (SELECT MAX(DATE) FROM Transactions t );";
+        Transaction lastTransaction = _db.LoadDataSingle<Transaction>(sql);
+        return lastTransaction.Date;
+    }
+
+    public string? GetTagName(Transaction obj)
+    {
+        if (obj.TagId != null)
+        {
+            string sql = "SELECT * FROM Tags WHERE Id = @Id";
+            var param = new { Id = obj.TagId };
+            Tag? tag = _db.LoadDataSingle<Tag>(sql, param);
+            return tag.Name;
+        }
+
+        return null;
+    }
+    
+    public Bucket GetBucket(Transaction obj)
+    {
+        string sql = "SELECT * FROM Buckets WHERE Id = @Id";
+        var param = new { Id = obj.BucketId };
+        return _db.LoadDataSingle<Bucket>(sql, param);
+    }
+
 }

@@ -9,12 +9,14 @@ public class TransactionViewModel
     public string Description { get; set; }
     public string Value { get; set; }
     public string Date { get; set; }
-    public string Tag { get; set; }
-    public string Bucket { get; set; }
+    public string? Tag { get; set; }
+    public string? Bucket { get; set; }
     public string Status { get; set; }
 
     public TransactionViewModel()
     {
         Status = Status == "0" ? "Pending" : "Done";
+        Tag ??= "";
+        Bucket ??= "";
     }
 }

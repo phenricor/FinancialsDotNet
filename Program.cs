@@ -12,6 +12,7 @@ builder.Configuration
     .AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true) 
     .AddEnvironmentVariables();
 builder.Services.AddScoped<CsvImporterService>();
+builder.Services.AddScoped<TransactionMappingService>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 var app = builder.Build();
@@ -33,7 +34,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Transactions}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 

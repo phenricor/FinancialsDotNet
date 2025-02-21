@@ -9,4 +9,7 @@ public interface ITransactionRepository
     public bool Delete(int id);
     public Transaction Find(int? id);
     public bool Update(Transaction obj);
+    public DateTime GetLastDate();
+    public string? GetTagName(Transaction obj);
+    public Bucket GetBucket(Transaction obj);
 }

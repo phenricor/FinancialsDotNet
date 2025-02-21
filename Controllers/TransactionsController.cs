@@ -11,10 +11,12 @@ public class TransactionsController : Controller
 {
     private readonly ITransactionRepository _repository;
     private readonly CsvImporterService _csvImport;
+    private readonly TransactionMappingService _mappings;
     
-    public TransactionsController(ITransactionRepository repository, CsvImporterService csvImport) {
+    public TransactionsController(ITransactionRepository repository, CsvImporterService csvImport, TransactionMappingService mappings) {
         _repository = repository;
         _csvImport = csvImport;
+        _mappings = mappings;
     }
     public IActionResult Index()
     {
@@ -25,8 +27,8 @@ public class TransactionsController : Controller
                 Description = t.Description.Length > 100 ? t.Description.Substring(0, 100) : t.Description,
                 Value = t.Value.ToString("c"),
                 Id = t.Id,
+                Tag = _repository.GetTagName(t),
                 Bucket = t.BucketId.ToString(),
-                Tag = t.TagId.ToString(),
             }).ToList();
         return View(transactions);
     }
@@ -74,7 +76,38 @@ public class TransactionsController : Controller
     {
         try
         {
-            _csvImport.ImportTransactions(file);
+            int recordsImported = _csvImport.ImportTransactions(file);
+            if (recordsImported > 0)
+            {
+                TempData["SuccessMessage"] = $"{recordsImported} transactions imported.";
+            }
+            else
+            {
+                TempData["AlertMessage"] = $"No transactions imported.";
+            }
+            return RedirectToAction("Index");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public IActionResult MapTransactions()
+    {
+        try
+        {
+            var transactions = _repository.GetTransactions();
+            var rowsAffected = _mappings.MapBucketsOnTransactions(transactions);
+            if (rowsAffected > 0)
+            {
+                TempData["SuccessMessage"] = $"{rowsAffected} transactions mapped.";
+            }
+            else
+            {
+                TempData["AlertMessage"] = $"No transactions mapped.";
+            }
             return RedirectToAction("Index");
         }
         catch (Exception e)

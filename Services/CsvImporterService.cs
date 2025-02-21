@@ -13,22 +13,28 @@ public class CsvImporterService
     {
         _repository = repository;
     }
-    public void ImportTransactions(IFormFile file)
+    public int ImportTransactions(IFormFile file)
     {
         using var reader = new StreamReader(file.OpenReadStream());
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         var records = csv.GetRecords<TransactionsToImport>();
+        int recordsImported = 0;
         foreach (var record in records)
         {
-            var transaction = new Transaction
+            if (record.Date > _repository.GetLastDate())
             {
-                Description = record.Description,
-                Date = record.Date,
-                Value = record.Value,
-                TagId = null,
-                BucketId = null 
-            };
-            _repository.Add(transaction);
+                var transaction = new Transaction
+                {
+                    Description = record.Description,
+                    Date = record.Date,
+                    Value = record.Value,
+                    TagId = null,
+                    BucketId = null 
+                };
+                _repository.Add(transaction);
+                recordsImported++;
+            }
         }
+        return recordsImported;
     }
 }
